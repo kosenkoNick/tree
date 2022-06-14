@@ -1,5 +1,9 @@
 package com.example.tree;
 
+/*
+ * @author Mykyta Kosenko
+ */
+
 interface Tree<E> extends Iterable<E> {
 
   boolean isPresent(E e);

@@ -3,6 +3,10 @@ package com.example.tree;
 import java.util.Iterator;
 import java.util.Stack;
 
+/*
+ * @author Mykyta Kosenko
+ */
+
 public class BST<E extends Comparable<E>> implements Tree<E> {
   protected Stack<E> stack = new Stack<>();
   protected TreeNode<E> root;

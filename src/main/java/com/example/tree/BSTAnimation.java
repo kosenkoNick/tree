@@ -11,6 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/*
+ * @author Mykyta Kosenko
+ */
+
 public class BSTAnimation extends Application {
   Button btInsert = new Button("Insert");
   Button btDelete = new Button("Delete");
@@ -21,13 +25,13 @@ public class BSTAnimation extends Application {
   @Override
   public void start(Stage primaryStage) {
     BST<Integer> tree = new BST<>(); // Create a tree
-    tree.insert(10);
-    tree.insert(15);
-    tree.insert(20);
-    tree.insert(30);
-    tree.insert(37);
-    tree.insert(-11);
-    tree.insert(-5);
+//    tree.insert(10);
+//    tree.insert(15);
+//    tree.insert(20);
+//    tree.insert(30);
+//    tree.insert(37);
+//    tree.insert(-11);
+//    tree.insert(-5);
     tree.insert(-1);
     tree.insert(-28);
     tree.insert(-27);

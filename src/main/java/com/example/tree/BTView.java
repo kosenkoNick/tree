@@ -1,16 +1,23 @@
 package com.example.tree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
+/*
+ * @author Mykyta Kosenko
+ */
+
 public class BTView extends Pane {
   private final BST<Integer> tree;
   private final double vGap = 60; // Gap between two levels in a tree
   private HashMap<String, Circle> nodes = new HashMap<>();
+  private List<Text> texts = new ArrayList<>();
 
   BTView(BST<Integer> tree) {
     this.tree = tree;
@@ -22,6 +29,7 @@ public class BTView extends Pane {
   }
 
   public void displayTree() {
+    nodes.clear();
     this.getChildren().clear(); // Clear the pane
 
     if (tree.getRoot() != null) {
@@ -55,6 +63,7 @@ public class BTView extends Pane {
     Text text = new Text(x - 4, y + 4, current.element + "");
     getChildren().addAll(circle, text);
     nodes.put(text.getText(), circle);
+    texts.add(text);
   }
 
   public void preorder() {
@@ -62,7 +71,6 @@ public class BTView extends Pane {
     tree.preorder();
     highlight();
     setStatus("Preorder: " + tree.stack);
-    signal();
   }
 
   public void inorder() {
@@ -90,29 +98,33 @@ public class BTView extends Pane {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        nodes.get(integer.toString()).setStroke(Color.BLACK);
-        nodes.get(integer.toString()).setFill(Color.LIGHTGRAY);
+        nodes.get(integer.toString()).setStroke(Color.GRAY);
+        nodes.get(integer.toString()).setFill(Color.WHITE);
         nodes.get(integer.toString()).setStrokeWidth(1);
+        texts.stream().filter(text -> text.getText().equals(integer)).forEach(text -> text.setFill(Color.GRAY));
+        if (integer == tree.stack.get(tree.size - 1)){
+          signal();
+        }
       }
     });
     thread.start();
   }
 
   public void signal(){
-//    Runnable thread = () -> {
+    Thread thread = new Thread(() -> {
       for (Circle circle : nodes.values()) {
-        circle.setFill(Color.CORAL);
+        circle.setFill(Color.LIGHTCORAL);
       }
-//      try {
-//        Thread.sleep(1000);
-//      } catch (InterruptedException e) {
-//        e.printStackTrace();
-//      }
-//      for (Circle circle : nodes.values()) {
-//        circle.setFill(Color.LIGHTGRAY);
-//      }
-//    };
-//    thread.run();
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      for (Circle circle : nodes.values()) {
+        circle.setFill(Color.LIGHTGRAY);
+      }
+    });
+    thread.start();
   }
 
 }
