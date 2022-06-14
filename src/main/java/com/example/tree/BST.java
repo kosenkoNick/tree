@@ -1,8 +1,10 @@
 package com.example.tree;
 
 import java.util.Iterator;
+import java.util.Stack;
 
 public class BST<E extends Comparable<E>> implements Tree<E> {
+  protected Stack<E> stack = new Stack<>();
   protected TreeNode<E> root;
   protected int size = 0;
 
@@ -57,6 +59,7 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
 
   @Override
   public void inorder() {
+    stack.clear();
     inorder(root);
   }
   protected void inorder(TreeNode<E> root) {
@@ -64,25 +67,27 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
       return;
     }
     inorder(root.left);
-    System.out.print(root.element + " ");
+    stack.add(root.element);
     inorder(root.right);
   }
 
   @Override
   public void preorder() {
+    stack.clear();
     preorder(root);
   }
   protected void preorder(TreeNode<E> root) {
     if (root == null) {
       return;
     }
-    System.out.print(root.element + " ");
+    stack.add(root.element);
     preorder(root.left);
     preorder(root.right);
   }
 
   @Override
   public void postorder() {
+    stack.clear();
     postorder(root);
   }
   protected void postorder(TreeNode<E> root) {
@@ -91,7 +96,7 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
     }
     postorder(root.left);
     postorder(root.right);
-    System.out.print(root.element + " ");
+    stack.add(root.element);
   }
 
   @Override
